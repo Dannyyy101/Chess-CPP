@@ -1,5 +1,5 @@
 //
-// Created by Daniel Stöcklein on 21.02.24.
+// Created by Daniel Stöcklein on 25.02.24.
 //
 
 #ifndef CHESS_OUTPUT_H
@@ -7,18 +7,32 @@
 
 #include <iostream>
 #include <string>
-#include "model/Field.h"
-#include "core/Position.h"
+
+#include "../core/Position.h"
+
+typedef std::array<std::array<std::string, 8>, 8> stringBoard;
+
+typedef std::vector<std::vector<std::string>> paintBoard;
 
 class Output {
 private:
-    Field** field_;
+    paintBoard field_;
+
+    const unsigned int fieldHeight_;
+    const unsigned int fieldWidth_;
+
+    const unsigned int boardHeight_;
+    const unsigned int boardWidth_;
 public:
-    Position drawCharacter(Position at);
-    Position drawSameCharacter(Position at);
-    Position drawEmptySquare(Position at);
-    Position drawInsideSquare(Position at);
-    Position drawBoard(Position at);
+    Output(int fieldWidth = 13, int fieldHeight = 3);
+    ~Output();
+
+    void drawCharacter(const Position* pos, std::string character);
+    void drawSameCharacter(const Position* pos, int width, const std::string& character);
+    void drawEmptySquare(const Position * pos, int width, int height);
+    void drawSquareWithPiece(const Position* pos, int width, int height, std::string piece);
+    void drawBoard(stringBoard);
+    void printBoard();
 };
 
 

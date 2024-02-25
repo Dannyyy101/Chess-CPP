@@ -1,13 +1,20 @@
 //
-// Created by Daniel Stöcklein on 21.02.24.
+// Created by Daniel Stöcklein on 25.02.24.
 //
 
 #include "CLI.h"
 
-std::string CLI::drawBoard() {
-    return std::string();
+CLI::CLI() : output_(nullptr) {
 }
 
-Position CLI::checkInput() {
-    return Position(0, 0);
+CLI::~CLI() {
+
+}
+
+Output& CLI::getOutput() {
+    return *this->output_;
+}
+
+void CLI::initOutput(int width, int height) {
+    this->output_ = new Output(width, height);
 }

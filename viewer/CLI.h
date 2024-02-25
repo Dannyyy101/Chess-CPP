@@ -1,19 +1,22 @@
 //
-// Created by Daniel Stöcklein on 21.02.24.
+// Created by Daniel Stöcklein on 25.02.24.
 //
 
-#ifndef SCHACH_CLI_H
-#define SCHACH_CLI_H
+#ifndef CHESS_CLI_H
+#define CHESS_CLI_H
 
-#include <iostream>
-#include <string>
-#include "core/Position.h"
+
+#include "Output.h"
 
 class CLI {
+private:
+    Output* output_;
 public:
-    std::string drawBoard();
-    Position checkInput();
+    CLI();
+    ~CLI();
+    void initOutput(int width, int height);
+    Output& getOutput();
 };
 
 
-#endif //SCHACH_CLI_H
+#endif //CHESS_CLI_H

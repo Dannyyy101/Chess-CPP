@@ -1,28 +1,23 @@
 //
-// Created by Daniel Stöcklein on 21.02.24.
+// Created by Daniel Stöcklein on 25.02.24.
 //
 
-#ifndef PLAYER_H
-#define PLAYER_H
+#ifndef CHESS_PLAYER_H
+#define CHESS_PLAYER_H
 
 #include <iostream>
 #include <string>
-#include "core/Color.h"
-#include "model/pieces/Piece.h"
+
+#include "../core/Color.h"
 
 class Player {
 private:
-    std::string name_;
+    const std::string name_;
     Color color_;
-    Piece* pieces_;
-    bool forcedToMove_;
 public:
-    Piece* getPices();
-    void removePiece(Piece piece_);
-    void changePiece(Piece piece_);
-    bool isForcedToMove();
-    bool setForcedToMove();
+    Player(std::string name, Color color);
+    ~Player();
 };
 
 
-#endif //PLAYER_H
+#endif //CHESS_PLAYER_H

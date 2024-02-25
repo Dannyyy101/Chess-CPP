@@ -1,20 +1,23 @@
 //
-// Created by Daniel Stöcklein on 21.02.24.
+// Created by Daniel Stöcklein on 25.02.24.
 //
 
-#ifndef SESSION_H
-#define SESSION_H
+#ifndef CHESS_SESSION_H
+#define CHESS_SESSION_H
 
-#include "viewer/CLI.h"
+
 #include "model/Chess.h"
+#include "viewer/CLI.h"
 
 class Session {
 private:
-    CLI cli_;
     Chess chess_;
+    CLI cli_;
 public:
+    Session();
+    ~Session();
     void run();
 };
 
 
-#endif //SESSION_H
+#endif //CHESS_SESSION_H
