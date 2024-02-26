@@ -7,7 +7,8 @@
 #include <utility>
 
 Chess::Chess() : currentPlayer(nullptr), playerIndex(0){
-
+    player_[0] = nullptr;
+    player_[1] = nullptr;
 }
 
 Chess::~Chess() {
@@ -32,6 +33,7 @@ void Chess::addPlayer(std::string name) {
 
 void Chess::setGameStarted() {
     this->gameStarted = true;
+   
     nextPlayer();
 }
 

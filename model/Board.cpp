@@ -4,12 +4,12 @@
 
 #include "Board.h"
 
-#include "Pieces/Pawn.h"
-#include "Pieces/Knight.h"
-#include "Pieces/Rook.h"
-#include "Pieces/Bishop.h"
-#include "Pieces/Queen.h"
-#include "Pieces/King.h"
+#include "pieces/Pawn.h"
+#include "pieces/Knight.h"
+#include "pieces/Rook.h"
+#include "pieces/Bishop.h"
+#include "pieces/Queen.h"
+#include "pieces/King.h"
 
 
 Board::Board(){

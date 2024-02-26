@@ -62,8 +62,8 @@ void CLI::printCurrentPlayer(const string& name) {
     cout << name << ": " << endl;
 }
 
-array<Position*, 2> CLI::getMove() {
-    array<Position*, 2> pos;
+std::array<Position*, 2> CLI::getMove() {
+    std::array<Position*, 2> pos;
     cout << "Please enter the coordinates of the piece you want to move: ";
     Input pieceIn(cin);
     cout << "Please enter the coordinates of the position you want your piece to be moved: ";

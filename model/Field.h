@@ -6,7 +6,7 @@
 #define CHESS_FIELD_H
 
 
-#include "./Pieces/Piece.h"
+#include "./pieces/Piece.h"
 #include "../core/Color.h"
 
 class Field {

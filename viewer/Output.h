@@ -6,7 +6,9 @@
 #define CHESS_OUTPUT_H
 
 #include <iostream>
+#include <array>
 #include <string>
+#include <vector>
 
 #include "../core/Position.h"
 

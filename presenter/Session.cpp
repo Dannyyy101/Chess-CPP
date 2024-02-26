@@ -12,6 +12,8 @@ Session::~Session() = default;
 
 void Session::run() {
     this->cli_.initOutput();
+    this->chess_.addPlayer("Daniel");
+    this->chess_.addPlayer("Felix");
 
     this->cli_.startDialog();
     while (!this->chess_.getGameStarted()) {
@@ -25,8 +27,6 @@ void Session::run() {
                 this->cli_.changeDisplay();
                 break;
             case 's':
-                this->chess_.addPlayer("Daniel");
-                this->chess_.addPlayer("Felix");
                 this->chess_.setGameStarted();
                 break;
         }

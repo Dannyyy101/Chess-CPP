@@ -6,6 +6,7 @@
 #define CHESS_CLI_H
 
 #include <iostream>
+#include <array>
 #include <string>
 
 #include "Output.h"
@@ -24,7 +25,7 @@ public:
     string createPlayer();
     void changeDisplay();
     void printCurrentPlayer(const string& name);
-    array<Position*, 2> getMove();
+    std::array<Position*, 2> getMove();
 
     Output& getOutput();
 };
