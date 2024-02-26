@@ -97,8 +97,8 @@ void Output::drawBoard(stringBoard f) {
 }
 
 void Output::printBoard() {
-    for (int i = 0; i < boardHeight_; ++i) {
-        for (int j = 0; j < boardWidth_; ++j) {
+    for (int i = boardHeight_; i >= 0; --i) {
+        for (unsigned int j = 0; j < boardWidth_; ++j) {
             std::cout << field_[i][j];
         }
         std::cout << "\n";

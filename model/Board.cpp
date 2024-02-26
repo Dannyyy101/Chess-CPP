@@ -20,27 +20,27 @@ Board::Board(){
         }
     }
 
-    field_[0][0]->setPiece(new Knight("Knight",WHITE));
-    field_[0][1]->setPiece(new Rook("Rook",WHITE));
+    field_[0][0]->setPiece(new Rook("Rook",WHITE));
+    field_[0][1]->setPiece(new Knight("Knight",WHITE));
     field_[0][2]->setPiece(new Bishop("Bishop",WHITE));
     field_[0][3]->setPiece(new Queen("Queen",WHITE));
     field_[0][4]->setPiece(new King("King",WHITE));
     field_[0][5]->setPiece(new Bishop("Bishop",WHITE));
-    field_[0][6]->setPiece(new Rook("Rook",WHITE));
-    field_[0][7]->setPiece(new Knight("Knight",WHITE));
+    field_[0][6]->setPiece(new Knight("Knight",WHITE));
+    field_[0][7]->setPiece(new Rook("Rook",WHITE));
 
     for (int i = 0; i < 8; ++i) {
         field_[1][i]->setPiece(new Pawn("Pawn", WHITE));
     }
 
-    field_[7][0]->setPiece(new Knight("Knight",BLACK));
-    field_[7][1]->setPiece(new Rook("Rook",BLACK));
+    field_[7][0]->setPiece(new Rook("Rook",BLACK));
+    field_[7][1]->setPiece(new Knight("Knight",BLACK));
     field_[7][2]->setPiece(new Bishop("Bishop",BLACK));
     field_[7][3]->setPiece(new Queen("King",BLACK));
     field_[7][4]->setPiece(new King("Queen",BLACK));
     field_[7][5]->setPiece(new Bishop("Bishop",BLACK));
-    field_[7][6]->setPiece(new Rook("Rook",BLACK));
-    field_[7][7]->setPiece(new Knight("Knight",BLACK));
+    field_[7][6]->setPiece(new Knight("Knight",BLACK));
+    field_[7][7]->setPiece(new Rook("Rook",BLACK));
 
     for (int i = 0; i < 8; ++i) {
         field_[6][i]->setPiece(new Pawn("Pawn", BLACK));
@@ -63,6 +63,16 @@ stringBoard Board::getBoard() {
             }
         }
     }
-
     return board;
+}
+
+Field *Board::getField(Position *pos) {
+    return field_[pos->getY()][pos->getX()];
+}
+
+void Board::movePiece(std::array<Position *, 2> pos) {
+    Field* field = field_[pos[0]->getY()][pos[0]->getX()];
+    Piece* piece = field->getPiece();
+    field_[pos[1]->getY()][pos[1]->getX()]->setPiece(piece);
+    field->setPiece(nullptr);
 }

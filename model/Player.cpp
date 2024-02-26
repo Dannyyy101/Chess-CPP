@@ -11,3 +11,7 @@ Player::~Player() = default;
 const std::string& Player::getName() {
     return this->name_;
 }
+
+Color Player::getColor() {
+    return this->color_;
+}

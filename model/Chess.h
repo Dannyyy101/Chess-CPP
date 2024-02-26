@@ -8,6 +8,7 @@
 
 #include "Player.h"
 #include "Board.h"
+#include "core/Position.h"
 
 class Chess {
 private:
@@ -25,6 +26,7 @@ public:
     void setGameStarted();
     bool getGameStarted();
     const std::string& getCurrentPlayer() const;
+    void makeMove(std::array<Position*, 2> move);
     void nextPlayer();
 };
 

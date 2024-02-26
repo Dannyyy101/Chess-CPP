@@ -49,3 +49,14 @@ void Chess::nextPlayer() {
     currentPlayer = this->player_[(playerIndex = playerIndex % 2)];
     playerIndex++;
 }
+
+void Chess::makeMove(std::array<Position*, 2> move) {
+    if(board_.getField(move[0])->getPiece() == nullptr){
+        throw std::runtime_error("There is no piece on this field.");
+    }
+    Piece* pieceToMove = board_.getField(move[0])->getPiece();
+    if(pieceToMove->getColor() != this->currentPlayer->getColor()){
+        throw std::runtime_error("You do not own this piece.");
+    }
+    board_.movePiece(move);
+}

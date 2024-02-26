@@ -10,6 +10,7 @@
 #include <array>
 
 #include "Field.h"
+#include "core/Position.h"
 
 typedef std::array<std::array<Field*, 8>, 8> board;
 typedef std::array<std::array<std::string, 8>, 8> stringBoard;
@@ -20,7 +21,9 @@ private:
 public:
     Board();
     ~Board();
+    Field* getField(Position* pos);
     stringBoard getBoard();
+    void movePiece(std::array<Position* ,2> pos);
 };
 
 

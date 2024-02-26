@@ -19,6 +19,7 @@ public:
     ~Player();
 
     const std::string& getName();
+    Color getColor();
 };
 
 
