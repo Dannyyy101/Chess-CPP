@@ -5,8 +5,12 @@
 #ifndef CHESS_CLI_H
 #define CHESS_CLI_H
 
+#include <iostream>
+#include <string>
 
 #include "Output.h"
+
+using namespace std;
 
 class CLI {
 private:
@@ -14,7 +18,14 @@ private:
 public:
     CLI();
     ~CLI();
-    void initOutput(int width, int height);
+    void initOutput(int width = 12, int height = 3);
+
+    void startDialog();
+    string createPlayer();
+    void changeDisplay();
+    void printCurrentPlayer(const string& name);
+    array<Position*, 2> getMove();
+
     Output& getOutput();
 };
 

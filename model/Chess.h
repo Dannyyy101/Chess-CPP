@@ -11,11 +11,21 @@
 
 class Chess {
 private:
+    Player* player_[2];
+    int playerIndex;
+    Player* currentPlayer;
     Board board_;
+    bool gameStarted;
 public:
     Chess();
     ~Chess();
+    void addPlayer(std::string name);
     Board& getBoard();
+
+    void setGameStarted();
+    bool getGameStarted();
+    const std::string& getCurrentPlayer() const;
+    void nextPlayer();
 };
 
 

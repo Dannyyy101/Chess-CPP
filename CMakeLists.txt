@@ -11,20 +11,20 @@ add_executable(Chess
         core/Position.h
         model/Player.cpp
         model/Player.h
-        model/Pieces/Piece.cpp
-        model/Pieces/Piece.h
-        model/Pieces/Pawn.cpp
-        model/Pieces/Pawn.h
-        model/Pieces/Bishop.cpp
-        model/Pieces/Bishop.h
-        model/Pieces/King.cpp
-        model/Pieces/King.h
-        model/Pieces/Knight.cpp
-        model/Pieces/Knight.h
-        model/Pieces/Queen.cpp
-        model/Pieces/Queen.h
-        model/Pieces/Rook.cpp
-        model/Pieces/Rook.h
+        model/pieces/Piece.cpp
+        model/pieces/Piece.h
+        model/pieces/Pawn.cpp
+        model/pieces/Pawn.h
+        model/pieces/Bishop.cpp
+        model/pieces/Bishop.h
+        model/pieces/King.cpp
+        model/pieces/King.h
+        model/pieces/Knight.cpp
+        model/pieces/Knight.h
+        model/pieces/Queen.cpp
+        model/pieces/Queen.h
+        model/pieces/Rook.cpp
+        model/pieces/Rook.h
         model/Field.cpp
         model/Field.h
         model/Board.cpp
@@ -38,4 +38,6 @@ add_executable(Chess
         model/Chess.h
         viewer/CLI.cpp
         viewer/CLI.h
+        viewer/Input.cpp
+        viewer/Input.h
 )

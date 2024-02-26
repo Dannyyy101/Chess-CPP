@@ -7,3 +7,7 @@
 Player::Player(std::string name, Color color) : name_(name), color_(color){}
 
 Player::~Player() = default;
+
+const std::string& Player::getName() {
+    return this->name_;
+}

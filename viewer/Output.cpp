@@ -17,14 +17,11 @@ field_(400, std::vector<std::string>(400)),
 fieldWidth_(fieldWidth),
 fieldHeight_(fieldHeight+1),
 boardWidth_(fieldWidth * 8 + 1),
+// +1 so the count of '|' equals the height
 boardHeight_((fieldHeight+1) * 8 + 1)
 
 {
-    for (int i = 0; i < boardHeight_; ++i) {
-        for (int j = 0; j < boardWidth_; ++j) {
-            field_[i][j] = " ";
-        }
-    }
+
 }
 
 Output::~Output() = default;
@@ -54,15 +51,15 @@ void Output::drawSameCharacter(const Position* pos, int width, const std::string
 void Output::drawEmptySquare(const Position * pos, int width, int height) {
     // draws top border
     if(pos->getX() == boardWidth_ - fieldWidth_ - 1) {
-        drawSameCharacter(new Position(pos->getX(), pos->getY()), width+1, "-");
-    }else{
         drawSameCharacter(new Position(pos->getX(), pos->getY()), width, "-");
+    }else{
+        drawSameCharacter(new Position(pos->getX(), pos->getY()), width-1, "-");
     }
 
     // draws left and right border
     for (int i = 0; i < height-1; ++i) {
         drawCharacter(new Position(pos->getX(), pos->getY()+i+1), "|");
-
+        drawSameCharacter(new Position(pos->getX()+1, pos->getY()+i+1), width-2, " ");
         if(pos->getX() == boardWidth_ - fieldWidth_ - 1){
             drawCharacter(new Position(pos->getX()+width, pos->getY()+i+1), "|");
         }
@@ -70,7 +67,12 @@ void Output::drawEmptySquare(const Position * pos, int width, int height) {
 
     // draws bottom border and the end of the board
     if(pos->getY() == boardHeight_ - fieldHeight_ - 1){
-        drawSameCharacter(new Position(pos->getX(), pos->getY()+height), width+1, "-");
+        // draws in the bottom right corner one '-' more
+        if(pos->getX() == boardWidth_ - fieldWidth_ - 1) {
+            drawSameCharacter(new Position(pos->getX(), pos->getY()+height), width, "-");
+        }else{
+        drawSameCharacter(new Position(pos->getX(), pos->getY()+height), width-1, "-");
+        }
     }
 }
 

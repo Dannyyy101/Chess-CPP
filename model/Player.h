@@ -17,6 +17,8 @@ private:
 public:
     Player(std::string name, Color color);
     ~Player();
+
+    const std::string& getName();
 };
 
 
