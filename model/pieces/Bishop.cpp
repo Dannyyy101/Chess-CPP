@@ -4,7 +4,7 @@
 
 #include "Bishop.h"
 
-Bishop::Bishop(std::string name, Color color) : Piece(name, color){}
+Bishop::Bishop(std::string name, Color color, Position* position, Board* board) : Piece(name, color, position, board){}
 
 Bishop::~Bishop() = default;
 
@@ -21,4 +21,8 @@ std::string Bishop::getName() {
     s+="B\033[0m";
 
     return s;
+}
+
+bool Bishop::isMoveAllowed(Position position) {
+    return false;
 }

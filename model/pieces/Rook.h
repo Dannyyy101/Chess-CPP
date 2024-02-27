@@ -13,8 +13,9 @@
 
 class Rook : public Piece{
 public:
-    Rook(std::string name, Color color);
+    Rook(std::string name, Color color, Position* position, Board* board);
     ~Rook();
+    bool isMoveAllowed(Position position);
     std::string getName();
 };
 

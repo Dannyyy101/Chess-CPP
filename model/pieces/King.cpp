@@ -4,7 +4,7 @@
 
 #include "King.h"
 
-King::King(std::string name, Color color) : Piece(name, color){}
+King::King(std::string name, Color color, Position* position, Board* board) : Piece(name, color, position, board){}
 
 King::~King() = default;
 
@@ -21,4 +21,8 @@ std::string King::getName() {
     s+="K\033[0m";
 
     return s;
+}
+
+bool King::isMoveAllowed(Position position) {
+    return false;
 }

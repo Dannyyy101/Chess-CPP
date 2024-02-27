@@ -35,7 +35,13 @@ void Session::run() {
         this->cli_.getOutput().drawBoard(this->chess_.getBoard().getBoard());
         this->cli_.getOutput().printBoard();
         this->cli_.printCurrentPlayer(this->chess_.getCurrentPlayer());
-        this->chess_.makeMove(this->cli_.getMove());
+        try{
+            this->chess_.makeMove(this->cli_.getMove());
+        } catch (runtime_error& e){
+            this->cli_.displayErrorMessage(e.what());
+            this->chess_.nextPlayer();
+        }
+
         this->chess_.nextPlayer();
 
     }

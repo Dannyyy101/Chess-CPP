@@ -13,8 +13,9 @@
 
 class Queen : public Piece{
 public:
-    Queen(std::string name, Color color);
+    Queen(std::string name, Color color, Position* position, Board* board);
     ~Queen();
+    bool isMoveAllowed(Position position);
     std::string getName();
 };
 

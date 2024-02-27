@@ -4,7 +4,7 @@
 
 #include "Queen.h"
 
-Queen::Queen(std::string name, Color color) : Piece(name, color){}
+Queen::Queen(std::string name, Color color, Position* position, Board* board) : Piece(name, color, position, board){}
 
 Queen::~Queen() = default;
 
@@ -21,4 +21,8 @@ std::string Queen::getName() {
     s+="Q\033[0m";
 
     return s;
+}
+
+bool Queen::isMoveAllowed(Position position) {
+    return false;
 }

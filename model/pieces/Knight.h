@@ -13,8 +13,9 @@
 
 class Knight : public Piece{
 public:
-    Knight(std::string name, Color color);
+    Knight(std::string name, Color color, Position* position, Board* board);
     ~Knight();
+    bool isMoveAllowed(Position position);
     std::string getName();
 };
 

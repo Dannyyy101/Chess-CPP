@@ -30,9 +30,9 @@ public:
     ~Output();
 
     void drawCharacter(const Position* pos, std::string character);
-    void drawSameCharacter(const Position* pos, int width, const std::string& character);
-    void drawEmptySquare(const Position * pos, int width, int height);
-    void drawSquareWithPiece(const Position* pos, int width, int height, std::string piece);
+    void drawSameCharacter(const Position* pos, unsigned int width, const std::string& character);
+    void drawEmptySquare(const Position * pos, unsigned int width, unsigned int height);
+    void drawSquareWithPiece(const Position* pos, unsigned int width, unsigned int height, std::string piece);
     void drawBoard(stringBoard);
     void printBoard();
 };

@@ -58,5 +58,8 @@ void Chess::makeMove(std::array<Position*, 2> move) {
     if(pieceToMove->getColor() != this->currentPlayer->getColor()){
         throw std::runtime_error("You do not own this piece.");
     }
+    if(!pieceToMove->isMoveAllowed({move[1]->getX(), move[1]->getY()})){
+        throw std::runtime_error("Error");
+    }
     board_.movePiece(move);
 }

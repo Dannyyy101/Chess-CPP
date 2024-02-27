@@ -14,8 +14,9 @@
 
 class Bishop : public Piece{
 public:
-    Bishop(std::string name, Color color);
+    Bishop(std::string name, Color color, Position* position, Board* board);
     ~Bishop();
+    bool isMoveAllowed(Position position);
     std::string getName();
 };
 

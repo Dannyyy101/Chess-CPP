@@ -4,7 +4,7 @@
 
 #include "Rook.h"
 
-Rook::Rook(std::string name, Color color) : Piece(name, color){}
+Rook::Rook(std::string name, Color color, Position* position, Board* board) : Piece(name, color, position, board){}
 
 Rook::~Rook() = default;
 
@@ -21,4 +21,8 @@ std::string Rook::getName() {
     s+="R\033[0m";
 
     return s;
+}
+
+bool Rook::isMoveAllowed(Position position) {
+    return false;
 }

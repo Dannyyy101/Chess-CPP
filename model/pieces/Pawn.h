@@ -12,9 +12,14 @@
 #include "core/Color.h"
 
 class Pawn : public Piece{
+private:
+    bool isMoved;
 public:
-    Pawn(std::string name, Color color);
+    Pawn(std::string name, Color color, Position* position, Board* board);
     ~Pawn();
+    bool isMoveAllowed(Position position);
+    bool whiteMove(Position position);
+    bool blackMove(Position position);
     std::string getName();
 };
 

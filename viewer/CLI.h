@@ -25,6 +25,7 @@ public:
     string createPlayer();
     void changeDisplay();
     void printCurrentPlayer(const string& name);
+    void displayErrorMessage(std::string errorMessage);
     std::array<Position*, 2> getMove();
 
     Output& getOutput();
