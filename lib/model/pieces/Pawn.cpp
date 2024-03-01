@@ -38,7 +38,7 @@ bool Pawn::isMoveAllowed(Position position) {
 }
 
 bool Pawn::whiteMove(Position position) {
-    Position posPiece = this->getPosition();
+    Position posPiece = *this->getPosition();
     Board *board = this->getBoard();
     // check if move takes enemy piece on the right and left
     if ((posPiece.getX() + 1 == position.getX() && posPiece.getY() + 1 == position.getY()) ||
@@ -77,12 +77,10 @@ bool Pawn::whiteMove(Position position) {
 }
 
 bool Pawn::blackMove(Position position) {
-    Position posPiece = this->getPosition();
+    Position posPiece = *this->getPosition();
     Board *board = this->getBoard();
+
     // check if move takes enemy piece on the right and left
-
-    std::cout << posPiece.getX() + 1 << " " << position.getX() << " " << posPiece.getY()-1 << " " << position.getY() << std::endl;
-
     if ((posPiece.getX() + 1 == position.getX() && posPiece.getY()-1 == position.getY()) ||
         posPiece.getX() - 1 == position.getX() && posPiece.getY()-1 == position.getY()) {
 

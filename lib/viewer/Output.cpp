@@ -91,6 +91,8 @@ void Output::drawBoard(stringBoard f) {
 
     // draws 1-8 on the left
     for (int i = 1; i < 9; ++i) {
+        // fieldHeight + 2 is the highest Point of the square - fieldHeight/2 is the half of the field
+        // -0.5 makes it centered correctly, no matter whether fieldHeight is odd or even
         drawCharacter(new Position(0, (i * fieldHeight_ + 2)  - (fieldHeight_-0.5)/2), std::to_string(i));
     }
 

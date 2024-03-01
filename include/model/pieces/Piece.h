@@ -27,7 +27,7 @@ public:
     virtual std::string getName() = 0;
     virtual bool isMoveAllowed(Position position) = 0;
     void setPosition(Position* position);
-    Position& getPosition();
+    Position* getPosition();
     Color getColor();
     Board* getBoard();
 };

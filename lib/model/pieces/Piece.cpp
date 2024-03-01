@@ -12,8 +12,8 @@ void Piece::setPosition(Position* position) {
     this->position_ = position;
 }
 
-Position &Piece::getPosition() {
-    return *this->position_;
+Position *Piece::getPosition() {
+    return this->position_;
 }
 
 Color Piece::getColor() {

@@ -20,7 +20,7 @@ Board::Board() {
         }
     }
 
-    field_[0][0]->setPiece(new Rook("Rook", WHITE, new Position(0, 0), this));
+    field_[5][5]->setPiece(new Rook("Rook", WHITE, new Position(5, 5), this));
     field_[0][1]->setPiece(new Knight("Knight", WHITE, new Position(1, 0), this));
     field_[5][2]->setPiece(new Bishop("Bishop", WHITE, new Position(2, 5), this));
     field_[0][3]->setPiece(new Queen("Queen", WHITE, new Position(3, 0), this));
@@ -29,7 +29,7 @@ Board::Board() {
     field_[0][6]->setPiece(new Knight("Knight", WHITE, new Position(6, 0), this));
     field_[0][7]->setPiece(new Rook("Rook", WHITE, new Position(7, 0), this));
 
-    for (unsigned int i = 0; i < 8; ++i) {
+    for (unsigned int i = 1; i < 8; ++i) {
         field_[1][i]->setPiece(new Pawn("Pawn", WHITE, new Position(i, 1), this));
     }
 
@@ -64,14 +64,17 @@ stringBoard Board::getBoard() {
     return board;
 }
 
-Field *Board::getField(Position *pos) {
+Field *Board::getField(Position* pos) {
     return field_[pos->getY()][pos->getX()];
 }
 
 void Board::movePiece(std::array<Position *, 2> pos) {
     Field *field = field_[pos[0]->getY()][pos[0]->getX()];
     Piece *piece = field->getPiece();
+    Position* oldPos = piece->getPosition();
+    delete oldPos;
     piece->setPosition(new Position(pos[1]->getX(), pos[1]->getY()));
     field_[pos[1]->getY()][pos[1]->getX()]->setPiece(piece);
     field->setPiece(nullptr);
+    delete pos[0];
 }
