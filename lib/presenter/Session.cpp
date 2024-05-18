@@ -41,7 +41,9 @@ void Session::run() {
             this->cli_.displayErrorMessage(e.what());
             this->chess_.nextPlayer();
         }
-
+        if(this->chess_.isGameOver()){
+            break;
+        }
         this->chess_.nextPlayer();
 
     }

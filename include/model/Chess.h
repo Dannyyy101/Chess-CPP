@@ -15,7 +15,7 @@ private:
     Player* player_[2];
     int playerIndex;
     Player* currentPlayer;
-    Board board_;
+    Board * board_;
     bool gameStarted;
 public:
     Chess();
@@ -28,6 +28,8 @@ public:
     const std::string& getCurrentPlayer() const;
     void makeMove(std::array<Position*, 2> move);
     void nextPlayer();
+    bool isPlayerInCheck();
+    bool isGameOver();
 };
 
 

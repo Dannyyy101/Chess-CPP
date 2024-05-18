@@ -40,7 +40,6 @@ bool Rook::isMoveAllowed(Position position) {
 
     int counter = 0;
     int index = (x != 0 ? x : y);
-    std::cout << index << std::endl;
     for (int i = 1; i <= (index < 0 ? index * -1 : index);) {
 
         i++;

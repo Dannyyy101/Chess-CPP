@@ -6,7 +6,7 @@
 
 #include <utility>
 
-Chess::Chess() : currentPlayer(nullptr), playerIndex(0){
+Chess::Chess() : currentPlayer(nullptr), playerIndex(0), board_(new Board){
     player_[0] = nullptr;
     player_[1] = nullptr;
 }
@@ -15,10 +15,11 @@ Chess::~Chess() {
     for(Player* player : player_){
         delete player;
     }
+    delete board_;
 }
 
 Board &Chess::getBoard() {
-    return this->board_;
+    return *this->board_;
 }
 
 void Chess::addPlayer(std::string name) {
@@ -33,7 +34,12 @@ void Chess::addPlayer(std::string name) {
 
 void Chess::setGameStarted() {
     this->gameStarted = true;
-   
+    for (int i = 0; i < 8; ++i) {
+        player_[0]->addPiece(board_->getField(new Position(i, 0))->getPiece());
+        player_[0]->addPiece(board_->getField(new Position(i, 1))->getPiece());
+        player_[1]->addPiece(board_->getField(new Position(i, 6))->getPiece());
+        player_[1]->addPiece(board_->getField(new Position(i, 7))->getPiece());
+    }
     nextPlayer();
 }
 
@@ -50,16 +56,47 @@ void Chess::nextPlayer() {
     playerIndex++;
 }
 
+bool Chess::isPlayerInCheck(){
+    std::vector<Piece* >* pieces = this->currentPlayer->getPieces();
+    Piece * king;
+    for (auto p: *pieces) {
+        std::cout << p->getName();
+        if(p->getName() == "K"){
+            king = p;
+            break;
+        }
+    }
+    Position * positionKing = king->getPosition();
+    this->nextPlayer();
+    std::vector<Piece* >* piecesNextPlayer = this->currentPlayer->getPieces();
+    for (auto p: *piecesNextPlayer) {
+        if(p->isMoveAllowed(*positionKing)){
+            return true;
+        }
+    }
+    delete king;
+    delete positionKing;
+    return false;
+}
+
 void Chess::makeMove(std::array<Position*, 2> move) {
-    if(board_.getField(move[0])->getPiece() == nullptr){
+    isPlayerInCheck();
+    if(board_->getField(move[0])->getPiece() == nullptr){
         throw std::runtime_error("There is no piece on this field.");
     }
-    Piece* pieceToMove = board_.getField(move[0])->getPiece();
+    Piece* pieceToMove = board_->getField(move[0])->getPiece();
     if(pieceToMove->getColor() != this->currentPlayer->getColor()){
         throw std::runtime_error("You do not own this piece.");
     }
     if(!pieceToMove->isMoveAllowed({move[1]->getX(), move[1]->getY()})){
-        throw std::runtime_error("Error");
+        throw std::runtime_error("This move is not allowed.");
     }
-    board_.movePiece(move);
+    board_->movePiece(move);
+}
+
+bool Chess::isGameOver() {
+    if(false){
+        this->gameStarted = false;
+    }
+    return false;
 }

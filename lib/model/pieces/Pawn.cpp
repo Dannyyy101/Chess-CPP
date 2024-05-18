@@ -59,7 +59,6 @@ bool Pawn::whiteMove(Position position) {
 
     // check if a piece is between move
     for (unsigned int i = posPiece.getY() + 1; i < position.getY(); i++) {
-        std::cout << posPiece.getY() + 1 << " " << position.getY() << std::endl;
         if (board->getField(new Position(posPiece.getX(), i))->getPiece() != nullptr) {
             throw std::runtime_error("Invalid move, there is a piece blocking your move");
         }

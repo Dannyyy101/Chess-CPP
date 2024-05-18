@@ -2,9 +2,13 @@
 // Created by Daniel Stöcklein on 25.02.24.
 //
 
-#include "include/model/pieces/Queen.h"
+#include <utility>
 
-Queen::Queen(std::string name, Color color, Position* position, Board* board) : Piece(name, color, position, board){}
+#include "include/model/pieces/Queen.h"
+#include "include/model/pieces/Rook.h"
+#include "include/model/pieces/Bishop.h"
+
+Queen::Queen(std::string name, Color color, Position* position, Board* board) : Piece(std::move(name), color, position, board){}
 
 Queen::~Queen() = default;
 
@@ -24,5 +28,11 @@ std::string Queen::getName() {
 }
 
 bool Queen::isMoveAllowed(Position position) {
-    return false;
+    Piece* rook = new Rook("Rook", this->getColor(), this->getPosition(), this->getBoard());
+    Piece* bishop = new Bishop("Bishop", this->getColor(), this->getPosition(), this->getBoard());
+    bool rookMoveIsAllowed = rook->isMoveAllowed(position);
+    bool bishopMoveIsAllowed = bishop->isMoveAllowed(position);
+    delete bishop;
+    delete rook;
+    return rookMoveIsAllowed || bishopMoveIsAllowed;
 }

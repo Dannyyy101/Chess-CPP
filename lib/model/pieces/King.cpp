@@ -3,6 +3,7 @@
 //
 
 #include "include/model/pieces/King.h"
+#include "include/model/pieces/Queen.h"
 
 King::King(std::string name, Color color, Position* position, Board* board) : Piece(name, color, position, board){}
 
@@ -24,5 +25,14 @@ std::string King::getName() {
 }
 
 bool King::isMoveAllowed(Position position) {
-    return false;
+    int x = this->getPosition()->getX() - position.getX();
+    int y = this->getPosition()->getY() - position.getY();
+    if(abs(x) + abs(y) < 1){
+        return false;
+    }
+
+    Queen * queen = new Queen("Queen", this->getColor(), this->getPosition(), this->getBoard());
+
+    delete queen;
+    return queen->isMoveAllowed(position);
 }

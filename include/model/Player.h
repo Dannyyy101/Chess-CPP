@@ -7,17 +7,23 @@
 
 #include <iostream>
 #include <string>
+#include <vector>
 
 #include "core/include/Color.h"
+#include "include/model/pieces/Piece.h"
 
 class Player {
 private:
     const std::string name_;
     Color color_;
+    bool isChecked;
+    std::vector<Piece *> pieces;
 public:
     Player(std::string name, Color color);
     ~Player();
 
+    void addPiece(Piece* piece);
+    std::vector<Piece *> * getPieces();
     const std::string& getName();
     Color getColor();
 };
