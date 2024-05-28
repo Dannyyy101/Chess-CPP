@@ -166,7 +166,6 @@ bool Chess::canKingMove(Piece *king) {
     Position posKing = *king->getPosition();
     int reverseMove[2] = {1, -1};
 
-    //TODO King darf an Ort laufen, an der er eigentlich nicht laufen dürfte
     for (int move: reverseMove) {
         if (king->isMoveAllowed({posKing.getX(), posKing.getY() + move})) {
             if (!isPlayerAfterMoveInCheck(posKing, Position(posKing.getX(), posKing.getY() + move))) {
@@ -207,6 +206,7 @@ bool Chess::isGameOver() {
     // check if King can move
     if (canKingMove(king)) return false;
 
+    // check if piece can block move
 
     return true;
 }

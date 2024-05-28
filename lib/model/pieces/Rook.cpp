@@ -27,42 +27,28 @@ bool Rook::isMoveAllowed(Position position) {
     Board *board = this->getBoard();
     Position *rookPosition = this->getPosition();
 
-    int x = rookPosition->getX() - position.getX();
-    int y = rookPosition->getY() - position.getY();
+    int x = position.getX();
+    int y = position.getY();
 
     unsigned int xRook = rookPosition->getX();
     unsigned int yRook = rookPosition->getY();
 
-    // before check if move is allowed Rook move
-    if(xRook - position.getX() != 0 && yRook - position.getY() != 0){
+    if (x != xRook && y != yRook) {
         return false;
     }
 
-    int counter = 0;
-    int index = (x != 0 ? x : y);
-    for (int i = 1; i <= (index < 0 ? index * -1 : index);) {
+    int rangeX = (x == xRook) ? 0 : (x > xRook) ? 1 : -1;
+    int rangeY = (y == yRook) ? 0 : (y > yRook) ? 1 : -1;
 
-        i++;
-        if(rookPosition->getX() != position.getX()){
-            x < 0 ? counter++ : counter--;
-            if(board->getField(new Position(xRook + counter, yRook))->getPiece() != nullptr){
-                return false;
-            }
-            if(xRook+counter == position.getX()){
-                return true;
-            }
+    int currentX = rangeX + xRook;
+    int currentY = rangeY + yRook;
+    while (currentX != x || currentY != y) {
+        if (board->getField(new Position(currentX, currentY))->getPiece() != nullptr) {
+            return false;
         }
-
-        if(rookPosition->getY() != position.getY()){
-            y < 0 ? counter++ : counter--;
-            std::cout << yRook + counter << std::endl;
-            if(yRook+counter == position.getY()){
-                return true;
-            }
-            if(board->getField(new Position(xRook, yRook + counter))->getPiece() != nullptr){
-                return false;
-            }
-        }
+        currentX += rangeX;
+        currentY += rangeY;
     }
-    return false;
+
+    return true;
 }
