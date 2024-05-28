@@ -89,5 +89,4 @@ void Board::movePiece(std::array<Position *, 2> pos) {
     piece->setPosition(new Position(pos[1]->getX(), pos[1]->getY()));
     field_[pos[1]->getY()][pos[1]->getX()]->setPiece(piece);
     field->setPiece(nullptr);
-    delete pos[0];
 }

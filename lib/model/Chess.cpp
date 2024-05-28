@@ -3,10 +3,11 @@
 //
 
 #include "include/model/Chess.h"
+#include "include/model/pieces/King.h"
 
 #include <utility>
 
-Chess::Chess() : currentPlayer(nullptr), playerIndex(0), board_(new Board) {
+Chess::Chess() : currentPlayer(nullptr), playerIndex(0), board_(nullptr) {
     player_[0] = nullptr;
     player_[1] = nullptr;
 }
@@ -16,6 +17,10 @@ Chess::~Chess() {
         delete player;
     }
     delete board_;
+}
+
+void Chess::initBoard(Board *board) {
+    this->board_ = board;
 }
 
 Board &Chess::getBoard() {
@@ -34,10 +39,16 @@ void Chess::addPlayer(std::string name) {
 void Chess::setGameStarted() {
     this->gameStarted = true;
     for (int i = 0; i < 8; ++i) {
-        player_[0]->addPiece(board_->getField(new Position(i, 0))->getPiece());
-        player_[0]->addPiece(board_->getField(new Position(i, 1))->getPiece());
-        player_[1]->addPiece(board_->getField(new Position(i, 6))->getPiece());
-        player_[1]->addPiece(board_->getField(new Position(i, 7))->getPiece());
+        for (int j = 0; j < 8; ++j) {
+            Piece *piece = board_->getField(new Position(i, j))->getPiece();
+            if (piece == nullptr) {
+                continue;
+            } else if (piece->getColor() == WHITE) {
+                player_[0]->addPiece(piece);
+            } else if (piece->getColor() == BLACK) {
+                player_[1]->addPiece(piece);
+            }
+        }
     }
     nextPlayer();
 }
@@ -60,7 +71,7 @@ bool Chess::isPlayerInCheck() {
     std::vector<Piece *> *pieces = this->currentPlayer->getPieces();
     Piece *king;
     for (auto p: *pieces) {
-        if (p->getName().find("K")) {
+        if (p->getName().find('K')) {
             king = p;
             break;
         }
@@ -90,10 +101,12 @@ void Chess::makeMove(std::array<Position *, 2> move) {
         throw std::runtime_error("This move is not allowed.");
     }
     if (isPlayerInCheck()) {
+        Piece * oldPiece = board_->getField(move[0])->getPiece();
         board_->movePiece(move);
         if (isPlayerInCheck()) {
             // reverse the move, because he was invalid
             board_->movePiece(std::array<Position *, 2>{move[1], move[0]});
+            board_->getField(move[0])->setPiece(oldPiece);
             throw std::runtime_error("You are checked, move a other piece.");
         }
     }
@@ -138,36 +151,62 @@ bool Chess::canMoveBeBlocked(Piece *pieceEnemy, Position posEnemy, Piece *king, 
     return false;
 }
 
-bool Chess::canKingMove(Piece *king, Position posKing) {
-    if(king->isMoveAllowed({posKing.getX(), posKing.getY()})){
+bool Chess::isPlayerAfterMoveInCheck(Position startPosition, Position move) {
+    Piece * oldPiece = board_->getField(&move)->getPiece();
+    this->board_->movePiece(std::array<Position *, 2>{&startPosition, &move});
+    bool checked = isPlayerInCheck();
 
-    }
+    this->board_->movePiece(std::array<Position *, 2>{&move, &startPosition});
+    this->board_->getField(&move)->setPiece(oldPiece);
+
+    return checked;
 }
 
-bool Chess::isGameOver() {
-    std::vector<Piece *> *pieces = this->currentPlayer->getPieces();
-    Piece *king;
-    for (auto p: *pieces) {
-        std::cout << p->getName();
-        if (p->getName().find('K')) {
-            king = p;
-            break;
+bool Chess::canKingMove(Piece *king) {
+    Position posKing = *king->getPosition();
+    int reverseMove[2] = {1, -1};
+
+    //TODO King darf an Ort laufen, an der er eigentlich nicht laufen dürfte
+    for (int move: reverseMove) {
+        if (king->isMoveAllowed({posKing.getX(), posKing.getY() + move})) {
+            if (!isPlayerAfterMoveInCheck(posKing, Position(posKing.getX(), posKing.getY() + move))) {
+                return true;
+            }
         }
-    }
-    Position *positionKing = king->getPosition();
-    this->nextPlayer();
-    std::vector<Piece *> *piecesNextPlayer = this->currentPlayer->getPieces();
-    this->nextPlayer();
-    for (auto p: *piecesNextPlayer) {
-        if (p->isMoveAllowed(*positionKing)) {
-            if (canMoveBeBlocked(p, *p->getPosition(), king, *positionKing)) {
-                continue;
-            } else {
-                this->gameStarted = false;
+        if (king->isMoveAllowed({posKing.getX() + move, posKing.getY()})) {
+            if (!isPlayerAfterMoveInCheck(posKing, Position(posKing.getX() + move, posKing.getY()))) {
+                return true;
+            }
+        }
+        if (king->isMoveAllowed({posKing.getX() + move, posKing.getY() + move})) {
+            if (!isPlayerAfterMoveInCheck(posKing, Position(posKing.getX() + move, posKing.getY() + move))) {
+                return true;
+            }
+        }
+        if (king->isMoveAllowed({posKing.getX() - move, posKing.getY() + move})) {
+            if (!isPlayerAfterMoveInCheck(posKing, Position(posKing.getX() - move, posKing.getY() + move))) {
                 return true;
             }
         }
     }
 
     return false;
+}
+
+bool Chess::isGameOver() {
+    King *king = nullptr;
+    for (auto piece: *currentPlayer->getPieces()) {
+        if (piece->getName().find('K')) {
+            king = dynamic_cast<King *>(piece);
+        }
+    }
+
+    // check if Player is in check
+    if (!isPlayerInCheck()) return false;
+
+    // check if King can move
+    if (canKingMove(king)) return false;
+
+
+    return true;
 }

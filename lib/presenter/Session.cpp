@@ -12,6 +12,8 @@ Session::Session() {}
 Session::~Session() = default;
 
 void Session::run() {
+    auto * board = new Board();
+    this->chess_.initBoard(board);
     this->cli_.initOutput();
     this->chess_.addPlayer("Daniel");
     this->chess_.addPlayer("Felix");

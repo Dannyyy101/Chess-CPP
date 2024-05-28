@@ -6,11 +6,16 @@
 #include "include/model/pieces/Bishop.h"
 #include "include/model/pieces/Knight.h"
 #include "include/model/pieces/Pawn.h"
+#include "include/model/Chess.h"
 #include <vector>
 
 // Helper function to set up the board
 void setupBoard(Board &board, Piece *piece) {
     board.boardTest(std::vector<Piece *>{piece});
+}
+
+void setupBoardWithMultiplePieces(Board &board, const std::vector<Piece *> &pieces) {
+    board.boardTest(pieces);
 }
 
 // King tests
@@ -155,6 +160,56 @@ TEST(PawnMoveTest, PawnInvalidMoves) {
 
     delete pawn;
 }
+
+TEST(CheckTest, isPlayerInCheck) {
+    auto *chess = new Chess();
+    chess->addPlayer("Daniel");
+    chess->addPlayer("Felix");
+
+    auto board = new Board();
+    auto *queen1 = new Queen("Queen1", WHITE, new Position(3, 3), board);
+    auto *queen2 = new Queen("Queen2", WHITE, new Position(5, 5), board);
+    auto *king = new King("King", BLACK, new Position(4, 4), board);
+
+
+    setupBoardWithMultiplePieces(*board, std::vector<Piece *>{queen1, queen2, king});
+
+    chess->initBoard(board);
+
+    chess->setGameStarted();
+
+    EXPECT_TRUE(chess->isPlayerInCheck());
+
+    delete queen1;
+    delete queen2;
+    delete king;
+    delete chess;
+}
+
+TEST(GameOverTest, isGameOver) {
+    auto *chess = new Chess();
+    chess->addPlayer("Daniel");
+    chess->addPlayer("Felix");
+
+    auto board = new Board();
+    auto *queen1 = new Queen("Queen1", WHITE, new Position(3, 3), board);
+    auto *queen2 = new Queen("Queen2", WHITE, new Position(5, 5), board);
+    auto *king = new King("King", BLACK, new Position(4, 4), board);
+
+
+    setupBoardWithMultiplePieces(*board, std::vector<Piece *>{queen1, queen2, king});
+
+    chess->initBoard(board);
+    chess->setGameStarted();
+    chess->nextPlayer();
+    EXPECT_TRUE(chess->isGameOver());
+
+    delete queen1;
+    delete queen2;
+    delete king;
+    delete chess;
+}
+
 
 int main(int argc, char **argv) {
     ::testing::InitGoogleTest(&argc, argv);

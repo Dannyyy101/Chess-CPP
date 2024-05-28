@@ -24,6 +24,8 @@ public:
 
     void addPlayer(std::string name);
 
+    void initBoard(Board *board);
+
     Board &getBoard();
 
     void setGameStarted();
@@ -38,9 +40,11 @@ public:
 
     bool isPlayerInCheck();
 
-    bool canKingMove(Piece *king, Position posKing);
+    bool canKingMove(Piece *king);
 
     bool isGameOver();
+
+    bool isPlayerAfterMoveInCheck(Position startPosition, Position move);
 
     bool canMoveBeBlocked(Piece *pieceEnemy, Position posEnemy, Piece *king, Position posKing);
 };
