@@ -5,6 +5,7 @@
 #include "include/presenter/Session.h"
 
 #include "include/viewer/Input.h"
+#include "lib/gui/MyApp.h"
 
 Session::Session() {}
 

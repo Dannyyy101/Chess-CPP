@@ -8,6 +8,7 @@
 #include <iostream>
 #include <string>
 #include <array>
+#include <vector>
 
 #include "Field.h"
 #include "core/include/Position.h"
@@ -21,6 +22,8 @@ private:
 public:
     Board();
     ~Board();
+    void initBoard();
+    void boardTest(const std::vector<Piece *>& pieces);
     Field* getField(Position* pos);
     stringBoard getBoard();
     void movePiece(std::array<Position* ,2> pos);

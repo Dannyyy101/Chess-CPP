@@ -12,24 +12,37 @@
 
 class Chess {
 private:
-    Player* player_[2];
+    Player *player_[2];
     int playerIndex;
-    Player* currentPlayer;
-    Board * board_;
+    Player *currentPlayer;
+    Board *board_;
     bool gameStarted;
 public:
     Chess();
+
     ~Chess();
+
     void addPlayer(std::string name);
-    Board& getBoard();
+
+    Board &getBoard();
 
     void setGameStarted();
+
     bool getGameStarted();
-    const std::string& getCurrentPlayer() const;
-    void makeMove(std::array<Position*, 2> move);
+
+    const std::string &getCurrentPlayer() const;
+
+    void makeMove(std::array<Position *, 2> move);
+
     void nextPlayer();
+
     bool isPlayerInCheck();
+
+    bool canKingMove(Piece *king, Position posKing);
+
     bool isGameOver();
+
+    bool canMoveBeBlocked(Piece *pieceEnemy, Position posEnemy, Piece *king, Position posKing);
 };
 
 

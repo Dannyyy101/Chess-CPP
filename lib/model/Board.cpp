@@ -2,6 +2,7 @@
 // Created by Daniel Stöcklein on 25.02.24.
 //
 
+
 #include "include/model/Board.h"
 
 #include "include/model/pieces/Pawn.h"
@@ -13,12 +14,17 @@
 
 
 Board::Board() {
-    // init Fields
     for (int i = 0; i < 8; ++i) {
         for (int j = 0; j < 8; ++j) {
             field_[i][j] = new Field(((j + i) % 2 == 0) ? BLACK : WHITE, nullptr);
         }
     }
+}
+
+Board::~Board() {}
+
+void Board::initBoard() {
+    // init Fields
 
     field_[0][0]->setPiece(new Rook("Rook", WHITE, new Position(0, 0), this));
     field_[0][1]->setPiece(new Knight("Knight", WHITE, new Position(1, 0), this));
@@ -47,7 +53,14 @@ Board::Board() {
     }
 }
 
-Board::~Board() {}
+void Board::boardTest(const std::vector<Piece *>& pieces) {
+    for (auto p: pieces) {
+        unsigned int x = p->getPosition()->getX();
+        unsigned int y = p->getPosition()->getY();
+
+        field_[y][x]->setPiece(p);
+    }
+}
 
 stringBoard Board::getBoard() {
     stringBoard board;

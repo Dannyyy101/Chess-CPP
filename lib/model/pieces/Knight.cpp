@@ -37,5 +37,14 @@ bool Knight::isMoveAllowed(Position position) {
             }
         }
     }
+    for(int pos : arr){
+        if(knightPosition->getX()+pos == position.getX()){
+            if(knightPosition->getY()+1 == position.getY()){
+                return true;
+            } else if(knightPosition->getY()-1 == position.getY()){
+                return true;
+            }
+        }
+    }
     return false;
 }
